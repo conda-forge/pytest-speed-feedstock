@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pytest-speed-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pytest-speed-{{ version }}.tar.gz
   sha256: 35e05dc714a0f6c3448b42fa2b2e08d775d92b1eecb1d67f0a0515116f4cd06c
 
 build:
@@ -14,16 +14,16 @@ build:
     - pytest-speed = pytest_speed.cli:cli
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - setuptools
     - setuptools-scm
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - pytest >=7
     - click >=7
     - rich >=12
@@ -36,6 +36,7 @@ test:
     - pytest-speed --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/samuelcolvin/pytest-speed
